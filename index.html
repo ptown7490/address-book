@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <title>Address-book</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Address book</h1>
+      <h2>Add a contact:</h2>
+      <form id="new-contact">
+        <p>
+          <label for="first-name">First Name</label>
+          <input id="first-name" type="text">
+        </p>
+        
+        <p>
+          <label for="last-name">Last Name</label>
+          <input id="last-name" type="text">
+        </p>
+        
+        <p>
+          <label for="address">Address</label>
+          <input id="address" type="text">
+        </p>
+
+        <button type="submit" class="btn">Add New Contact</button>
+
+      </form>
+
+      <h3>Contacts:</h3>
+      <ul id="contacts">
+
+      </ul>
+
+      <div id="show-contact">
+        <h2></h2>
+
+        <p>First name: <span class="first-name"></span></p>
+        <p>Last name: <span class="last-name"></span></p>
+        <p>Address: <span class="address"></span></p>
+      </div>
+
+    </div>
+  </body>
+</html>

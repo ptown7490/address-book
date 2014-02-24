@@ -3,3 +3,28 @@ var Contact = {
     return this.firstName + " " + this.lastName;
   }
 };
+
+$(document).ready(function() {
+  $("form#new-contact").submit(function(event) {
+    event.preventDefault();
+
+    var inputtedFirstName = $("input#first-name").val();
+    var inputtedLastName = $("input#last-name").val();
+    var inputtedAddress = $("input#address").val();
+
+    var newContact = Object.create(Contact);
+    newContact.firstName = inputtedFirstName;
+    newContact.lastName = inputtedLastName;
+    newContact.address = inputtedAddress;
+    $("ul#contacts").append("<li><span class=\"contact\">" + newContact.fullName() + "</span></li>");
+    this.reset();
+
+    $(".contact").last().click(function() {
+      $("#show-contact").show();
+      $("#show-contact h2").text(newContact.fullName());
+      $(".first-name").text(newContact.firstName);
+      $(".last-name").text(newContact.lastName);
+      $(".address").text(newContact.address);
+    });
+  });
+});
