@@ -20,11 +20,31 @@ $(document).ready(function() {
     this.reset();
 
     $(".contact").last().click(function() {
-      $("#show-contact").show();
-      $("#show-contact h2").text(newContact.fullName());
-      $(".first-name").text(newContact.firstName);
-      $(".last-name").text(newContact.lastName);
-      $(".address").text(newContact.address);
+      $("#changeableView").show();
+      $("#selectedContact").text(newContact.fullName());
+      $("#selectedContactFirstName").text(newContact.firstName);
+
+      $("button#editButton").click(function() {
+        $("input#edit-firstName").val(newContact.firstName);
+        $("#displayView").hide();
+        $("#editView").show();   
+      });
+
+    });
+
+    $("form#updateButton").submit(function(event) {
+      event.preventDefault();
+
+      newContact.firstName = $("input#edit-firstName").val();
+      $("ul#contacts").append("<li><span class=\"contact\">" + newContact.firstName() + "</span></li>");
+      this.reset();
+
+      // $("form#updateButton").click() {
+      //   $("displayView").show();
+      // }
+
+    });
+
+
     });
   });
-});
