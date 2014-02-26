@@ -1,12 +1,50 @@
 var Contact = {
+  initialize: function(firstName, lastName) {
+    this.firstName  = firstName;
+    this.lastName  = lastName;
+    this.addresses = [];
+    this.phones = [];
+  },
+
+  create: function(firstName, lastName) {
+    var contact = Object.create(Contact);
+    contact.initialize(firstName, lastName);
+    return contact;
+  },
+
   fullName: function() {
     return this.firstName + " " + this.lastName;
+  },
+
+  createAddress: function(street, city, state, zip) {
+    var address = Address.create(street, city, state, zip);
+    this.addresses.push(address);
+    return address;
+  },
+
+  createPhone: function(digits) {
+    var phone = Phone.create(digits);
+    this.phones.push(phone);
+    return phone;
   }
 };
 
 var Address = {
+  create: function(street, city, state, zip) {
+    var address = Object.create(Address); 
+    address.initialize(street, city, state, zip);
+    return address;
+  },
+
   fullAddress: function() {
     return this.street + "<br />" + this.city + ", " + this.state + " " + this.zip;
+  },
+
+  initialize: function(street, city, state, zip) {
+    this.street = street;
+    this.city = city;
+    this.state = state;
+    this.zip = zip;
   },
 
   valid: function() {
@@ -21,10 +59,19 @@ var Address = {
 
     return true;
   }
-
 };
 
 var Phone = {
+  initialize: function(digits) {
+    this.digits = digits;
+  },
+
+  create: function(digits) {
+    var testPhone = Object.create(Phone);
+    testPhone.initialize(digits);
+    return testPhone;
+  },
+
   formatted: function() {
     return "(" + this.digits.slice(0,3) + ") " + this.digits.slice(3,6) + "-" + this.digits.slice(6);
   },
@@ -76,14 +123,7 @@ $(document).ready(function() {
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     
-
-
-    var newContact = Object.create(Contact);
-    newContact.firstName = inputtedFirstName;
-    newContact.lastName = inputtedLastName;
-
-    newContact.addresses = [];
-    newContact.phones = [];
+    var newContact = Contact.create(inputtedFirstName, inputtedLastName);
 
     $(".new-address").each(function() {
       var inputtedStreet = $(this).find("input#new-street").val();
@@ -91,22 +131,13 @@ $(document).ready(function() {
       var inputtedState = $(this).find("input#new-state").val();
       var inputtedZip = $(this).find("input#new-zip").val();
 
-      var newAddress = Object.create(Address);
-      newAddress.street = inputtedStreet;
-      newAddress.city = inputtedCity;
-      newAddress.state = inputtedState;
-      newAddress.zip = inputtedZip;
-
-      newContact.addresses.push(newAddress);
+      newContact.createAddress(inputtedStreet, inputtedCity, inputtedState, inputtedZip);
     });
 
     $(".new-phone").each(function() {
       var inputtedPhone = $(this).find("input#new-phone-in").val();
       
-      var newPhone = Object.create(Phone);
-      newPhone.digits = inputtedPhone;
-
-      newContact.phones.push(newPhone);
+      newContact.createPhone(inputtedPhone);
     });
 
     $("ul#contacts").append("<li><span class=\"contact\">" + newContact.fullName() + "</span></li>");
